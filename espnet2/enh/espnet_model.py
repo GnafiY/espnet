@@ -346,6 +346,10 @@ class ESPnetEnhancementModel(AbsESPnetModel):
                 for sp in speech_pre
             ]
 
+        # for TPDT-SS loss
+        if 'wkp_ind' in kwargs.keys():
+            others['wkp_ind'] = kwargs['wkp_ind'].squeeze(-1)
+
         # loss computation
         loss, stats, weight, perm = self.forward_loss(
             speech_pre,

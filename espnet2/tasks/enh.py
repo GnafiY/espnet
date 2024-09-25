@@ -44,6 +44,7 @@ from espnet2.enh.loss.wrappers.fixed_order import FixedOrderSolver
 from espnet2.enh.loss.wrappers.mixit_solver import MixITSolver
 from espnet2.enh.loss.wrappers.multilayer_pit_solver import MultiLayerPITSolver
 from espnet2.enh.loss.wrappers.pit_solver import PITSolver
+from espnet2.enh.loss.wrappers.tpdt_solver import TPDTSolver
 from espnet2.enh.separator.abs_separator import AbsSeparator
 from espnet2.enh.separator.asteroid_models import AsteroidModel_Converter
 from espnet2.enh.separator.bsrnn_separator import BSRNNSeparator
@@ -66,6 +67,7 @@ from espnet2.enh.separator.tfgridnet_separator import TFGridNet
 from espnet2.enh.separator.tfgridnetv2_separator import TFGridNetV2
 from espnet2.enh.separator.tfgridnetv3_separator import TFGridNetV3
 from espnet2.enh.separator.transformer_separator import TransformerSeparator
+from espnet2.enh.separator.tskim_separator import TSkiMSeparator
 from espnet2.enh.separator.uses_separator import USESSeparator
 from espnet2.iterators.abs_iter_factory import AbsIterFactory
 from espnet2.tasks.abs_task import AbsTask
@@ -116,6 +118,7 @@ separator_choices = ClassChoices(
         tfgridnetv2=TFGridNetV2,
         tfgridnetv3=TFGridNetV3,
         uses=USESSeparator,
+        tskim=TSkiMSeparator,
     ),
     type_check=AbsSeparator,
     default="rnn",
@@ -143,6 +146,7 @@ loss_wrapper_choices = ClassChoices(
         multilayer_pit=MultiLayerPITSolver,
         dpcl=DPCLSolver,
         mixit=MixITSolver,
+        tpdt=TPDTSolver,
     ),
     type_check=AbsLossWrapper,
     default=None,
@@ -494,6 +498,7 @@ class EnhancementTask(AbsTask):
         retval += ["speech_ref{}".format(n) for n in range(2, MAX_REFERENCE_NUM + 1)]
         retval += ["noise_ref{}".format(n) for n in range(1, MAX_REFERENCE_NUM + 1)]
         retval += ["category", "fs"]
+        retval += ["wkp_ind"]
         retval = tuple(retval)
         return retval
 

@@ -1,0 +1,1 @@
+../../TEMPLATE/enh_kws1/path.sh
